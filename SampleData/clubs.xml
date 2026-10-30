@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StudentClubs>
+  <Club Name="Клуб олімпіадного програмування" Kind="гурток"
+        Faculty="Факультет комп'ютерних наук та кібернетики"
+        Department="Кафедра теорії та технології програмування">
+    <Schedule Day="Вівторок" Time="16:40" />
+    <Orientation Course="1" Topic="Алгоритми та структури даних" />
+    <Head>Мельник Софія Андріївна</Head>
+    <Supervisor>Коваленко Олег Миколайович</Supervisor>
+  </Club>
+
+  <Club Name="Семінар з машинного навчання" Kind="семінар"
+        Faculty="Факультет комп'ютерних наук та кібернетики"
+        Department="Кафедра інтелектуальних програмних систем">
+    <Schedule Day="Четвер" Time="15:00" />
+    <Orientation Course="3" Topic="Машинне навчання" />
+    <Head>Бондар Максим Ігорович</Head>
+    <Supervisor>Шевчук Ірина Василівна</Supervisor>
+  </Club>
+
+  <Club Name="Гурток веб-розробки" Kind="гурток"
+        Faculty="Факультет комп'ютерних наук та кібернетики">
+    <Schedule Day="Середа" Time="17:00" />
+    <Orientation Course="1" Topic="Веб-розробка" />
+    <Head>Ткаченко Дарина Олегівна</Head>
+    <Supervisor>Савченко Андрій Петрович</Supervisor>
+  </Club>
+
+  <Club Name="Семінар з математичної логіки" Kind="семінар"
+        Faculty="Факультет комп'ютерних наук та кібернетики"
+        Department="Кафедра математичної інформатики">
+    <Schedule Day="Понеділок" Time="13:30" />
+    <Orientation Course="2" Topic="Математична логіка" />
+    <Head>Кравчук Назар Сергійович</Head>
+    <Supervisor>Лисенко Тетяна Михайлівна</Supervisor>
+  </Club>
+
+  <Club Name="Гурток комп'ютерної графіки" Kind="гурток"
+        Faculty="Факультет комп'ютерних наук та кібернетики"
+        Department="Кафедра моделювання складних систем">
+    <Schedule Day="П'ятниця" Time="14:40" />
+    <Orientation Course="2" Topic="Комп'ютерна графіка" />
+    <Head>Олійник Вероніка Юріївна</Head>
+    <Supervisor>Гнатюк Сергій Васильович</Supervisor>
+  </Club>
+
+  <Club Name="Математичний гурток «Олімп»" Kind="гурток"
+        Faculty="Механіко-математичний факультет"
+        Department="Кафедра алгебри та комп'ютерної математики">
+    <Schedule Day="Вівторок" Time="15:00" />
+    <Orientation Course="1" Topic="Олімпіадна математика" />
+    <Head>Руденко Артем Олександрович</Head>
+    <Supervisor>Марченко Людмила Іванівна</Supervisor>
+  </Club>
+
+  <Club Name="Семінар з теорії ймовірностей" Kind="семінар"
+        Faculty="Механіко-математичний факультет"
+        Department="Кафедра теорії ймовірностей, статистики та актуарної математики">
+    <Schedule Day="Четвер" Time="16:40" />
+    <Orientation Course="3" Topic="Теорія ймовірностей" />
+    <Head>Захарченко Ілля Романович</Head>
+    <Supervisor>Поліщук Віктор Степанович</Supervisor>
+  </Club>
+
+  <Club Name="Науковий семінар з функціонального аналізу" Kind="семінар"
+        Faculty="Механіко-математичний факультет">
+    <Schedule Day="Середа" Time="18:00" />
+    <Orientation Course="4" Topic="Функціональний аналіз" />
+    <Head>Левченко Катерина Миколаївна</Head>
+    <Supervisor>Федоренко Микола Петрович</Supervisor>
+  </Club>
+
+  <Club Name="Гурток астрофізики" Kind="гурток"
+        Faculty="Фізичний факультет"
+        Department="Кафедра астрономії та фізики космосу">
+    <Schedule Day="Понеділок" Time="17:00" />
+    <Orientation Course="1" Topic="Астрофізика" />
+    <Head>Павленко Остап Дмитрович</Head>
+    <Supervisor>Кузьменко Ганна Олегівна</Supervisor>
+  </Club>
+
+  <Club Name="Семінар з квантової механіки" Kind="семінар"
+        Faculty="Фізичний факультет"
+        Department="Кафедра теоретичної фізики">
+    <Schedule Day="П'ятниця" Time="13:30" />
+    <Orientation Course="4" Topic="Квантова механіка" />
+    <Head>Сидоренко Юлія Вікторівна</Head>
+    <Supervisor>Романенко Петро Андрійович</Supervisor>
+  </Club>
+
+  <Club Name="Гурток кібербезпеки" Kind="гурток"
+        Faculty="Факультет інформаційних технологій"
+        Department="Кафедра кібербезпеки та захисту інформації">
+    <Schedule Day="Середа" Time="16:40" />
+    <Orientation Course="2" Topic="Кібербезпека" />
+    <Head>Мороз Владислав Олегович</Head>
+    <Supervisor>Яковенко Оксана Сергіївна</Supervisor>
+  </Club>
+
+  <Club Name="Семінар з розробки мобільних застосунків" Kind="семінар"
+        Faculty="Факультет інформаційних технологій">
+    <Schedule Day="Четвер" Time="18:00" />
+    <Orientation Course="3" Topic="Мобільна розробка" />
+    <Head>Гончаренко Аліна Ігорівна</Head>
+    <Supervisor>Білик Роман Васильович</Supervisor>
+  </Club>
+</StudentClubs>
