@@ -1,13 +1,21 @@
 ﻿using Core;
 
-Club club = new Club {
-    Name = "Гурток веб-розробки", Kind = "гурток",
-    Faculty = "Факультет комп'ютерних наук та кібернетики",
-    Day = "Середа", Time = "17:00", Course = "1", Topic = "Веб-розробка",
-    Head = "Ткаченко Дарина Олегівна", Supervisor = "Савченко Андрій Петрович"
-};
+SearchCriteria criteria = new SearchCriteria();
+criteria.Set("Faculty", "Факультет комп'ютерних наук та кібернетики");
+criteria.Set("Course", "2");
+criteria.Set("Day", "");
+criteria.Keyword = "логік";
 
-Console.WriteLine(club);
-Console.WriteLine(club.ToXElement());
-Console.WriteLine(club.ContainsKeyword("КОМП’ЮТЕРНИХ"));
-Console.WriteLine(club.ContainsKeyword("фізика"));
+Console.WriteLine(criteria);
+Console.WriteLine(criteria.Active().Count);
+Console.WriteLine(criteria.Get("Day") == "");
+
+try {
+    criteria.Set("Room", "214");
+} catch (ArgumentException ex) {
+    Console.WriteLine(ex.Message);
+}
+
+criteria.Clear();
+Console.WriteLine(criteria.IsEmpty());
+Console.WriteLine(criteria);
