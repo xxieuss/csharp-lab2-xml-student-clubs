@@ -1,17 +1,20 @@
 ﻿using Core;
 
 string xml = File.ReadAllText("../SampleData/clubs.xml");
-ISearchStrategy strategy = new SaxSearchStrategy();
+DomSearchStrategy strategy = new DomSearchStrategy();
 
 SearchCriteria criteria = new SearchCriteria();
 criteria.Set("Faculty", "Факультет комп'ютерних наук та кібернетики");
 criteria.Set("Course", "2");
 
 List<Club> found = strategy.Search(xml, criteria);
+Console.WriteLine(strategy.LastQuery);
 Console.WriteLine($"Знайдено: {found.Count}");
 foreach (Club club in found) Console.WriteLine($"  {club.Name}");
 
-criteria.Keyword = "логік";
-Console.WriteLine(strategy.Search(xml, criteria).Count);
+criteria.Clear();
+criteria.Set("Kind", "семінар");
+Console.WriteLine($"{strategy.Search(xml, criteria).Count} — {strategy.LastQuery}");
 
-Console.WriteLine(strategy.Search(xml, new SearchCriteria()).Count);
+criteria.Clear();
+Console.WriteLine($"{strategy.Search(xml, criteria).Count} — {strategy.LastQuery}");
