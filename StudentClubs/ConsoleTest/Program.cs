@@ -1,21 +1,17 @@
 ﻿using Core;
 
+string xml = File.ReadAllText("../SampleData/clubs.xml");
+ISearchStrategy strategy = new SaxSearchStrategy();
+
 SearchCriteria criteria = new SearchCriteria();
 criteria.Set("Faculty", "Факультет комп'ютерних наук та кібернетики");
 criteria.Set("Course", "2");
-criteria.Set("Day", "");
+
+List<Club> found = strategy.Search(xml, criteria);
+Console.WriteLine($"Знайдено: {found.Count}");
+foreach (Club club in found) Console.WriteLine($"  {club.Name}");
+
 criteria.Keyword = "логік";
+Console.WriteLine(strategy.Search(xml, criteria).Count);
 
-Console.WriteLine(criteria);
-Console.WriteLine(criteria.Active().Count);
-Console.WriteLine(criteria.Get("Day") == "");
-
-try {
-    criteria.Set("Room", "214");
-} catch (ArgumentException ex) {
-    Console.WriteLine(ex.Message);
-}
-
-criteria.Clear();
-Console.WriteLine(criteria.IsEmpty());
-Console.WriteLine(criteria);
+Console.WriteLine(strategy.Search(xml, new SearchCriteria()).Count);
