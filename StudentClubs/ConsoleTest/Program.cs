@@ -3,12 +3,13 @@
 string xml = File.ReadAllText("../SampleData/clubs.xml");
 
 SearchCriteria criteria = new SearchCriteria();
-criteria.Set("Kind", "гурток");
-criteria.Set("Day", "Вівторок");
+criteria.Set("Faculty", "Фізичний факультет");
 
-ISearchStrategy[] strategies = { new SaxSearchStrategy(), new DomSearchStrategy(), new LinqSearchStrategy() };
-foreach (ISearchStrategy strategy in strategies) {
-    List<Club> found = strategy.Search(xml, criteria);
-    Console.WriteLine($"{strategy.GetType().Name}: {found.Count}");
-    foreach (Club club in found) Console.WriteLine($"  {club.Name}");
-}
+DomSearchStrategy dom = new DomSearchStrategy();
+ClubSearcher searcher = new ClubSearcher(new SaxSearchStrategy());
+
+Console.WriteLine($"SAX:  {searcher.Search(xml, criteria).Count}");
+searcher.SetStrategy(dom);
+Console.WriteLine($"DOM:  {searcher.Search(xml, criteria).Count}  {dom.LastQuery}");
+searcher.SetStrategy(new LinqSearchStrategy());
+Console.WriteLine($"LINQ: {searcher.Search(xml, criteria).Count}");
