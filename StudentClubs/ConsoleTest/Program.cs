@@ -1,15 +1,10 @@
 ﻿using Core;
 
 string xml = File.ReadAllText("../SampleData/clubs.xml");
+Dictionary<string, string[]> values = new AttributeValueLoader().Load(xml);
 
-SearchCriteria criteria = new SearchCriteria();
-criteria.Set("Faculty", "Фізичний факультет");
+foreach (string field in new[] { "Kind", "Faculty", "Day", "Course" })
+    Console.WriteLine($"{field}: {string.Join(", ", values[field])}");
 
-DomSearchStrategy dom = new DomSearchStrategy();
-ClubSearcher searcher = new ClubSearcher(new SaxSearchStrategy());
-
-Console.WriteLine($"SAX:  {searcher.Search(xml, criteria).Count}");
-searcher.SetStrategy(dom);
-Console.WriteLine($"DOM:  {searcher.Search(xml, criteria).Count}  {dom.LastQuery}");
-searcher.SetStrategy(new LinqSearchStrategy());
-Console.WriteLine($"LINQ: {searcher.Search(xml, criteria).Count}");
+Console.WriteLine($"Department: {values["Department"].Length} значень");
+Console.WriteLine($"Supervisor: {values["Supervisor"].Length} значень");
