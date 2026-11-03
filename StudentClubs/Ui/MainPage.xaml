@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Ui"
              x:Class="Ui.MainPage"
              Title="Студентські гуртки та семінари"
              BackgroundColor="#120F18">
@@ -60,23 +61,29 @@
                 <Setter Property="TextColor" Value="{StaticResource TextDim}" />
             </Style>
 
+            <Style x:Key="SmallButton" TargetType="Button">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="Padding" Value="8,0" />
+                <Setter Property="HeightRequest" Value="24" />
+                <Setter Property="MinimumHeightRequest" Value="0" />
+                <Setter Property="MinimumWidthRequest" Value="0" />
+                <Setter Property="CornerRadius" Value="6" />
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="BackgroundColor" Value="{StaticResource ButtonBg}" />
+                <Setter Property="TextColor" Value="{StaticResource TextDim}" />
+            </Style>
+
             <Style x:Key="FileName" TargetType="Label">
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="TextColor" Value="{StaticResource Accent2}" />
                 <Setter Property="LineBreakMode" Value="MiddleTruncation" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
             </Style>
 
             <Style x:Key="Rule" TargetType="BoxView">
                 <Setter Property="HeightRequest" Value="1" />
                 <Setter Property="Color" Value="{StaticResource CardBorder}" />
                 <Setter Property="Margin" Value="0,6" />
-            </Style>
-
-            <Style TargetType="Picker">
-                <Setter Property="FontSize" Value="13" />
-                <Setter Property="TextColor" Value="{StaticResource Text}" />
-                <Setter Property="TitleColor" Value="{StaticResource TextDim}" />
-                <Setter Property="BackgroundColor" Value="{StaticResource Field}" />
             </Style>
 
             <Style TargetType="Entry">
@@ -110,19 +117,29 @@
                 <ScrollView>
                     <VerticalStackLayout Spacing="8">
 
-                        <Label Text="XML-ФАЙЛ" Style="{StaticResource Section}" />
+                        <Label Text="XML-ФАЙЛ · ДАНІ" Style="{StaticResource Section}" />
+                        <Label Text="Усі гуртки, серед яких іде пошук" Style="{StaticResource FieldLabel}" />
                         <Grid ColumnDefinitions="*,*" ColumnSpacing="6">
                             <Button Grid.Column="0" Text="З диска" CommandParameter="Local" Clicked="OnOpenXmlClicked" />
                             <Button Grid.Column="1" Text="З Google Drive" CommandParameter="GoogleDrive" Clicked="OnOpenXmlClicked" />
                         </Grid>
-                        <Label x:Name="XmlFileLabel" Text="не відкрито" Style="{StaticResource FileName}" />
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                            <Label x:Name="XmlFileLabel" Grid.Column="0" Text="не відкрито" Style="{StaticResource FileName}" />
+                            <Button x:Name="CloseXmlButton" Grid.Column="1" Text="Закрити" Style="{StaticResource SmallButton}"
+                                    IsVisible="False" Clicked="OnCloseXmlClicked" />
+                        </Grid>
 
-                        <Label Text="XSL-ФАЙЛ" Style="{StaticResource Section}" Margin="0,6,0,0" />
+                        <Label Text="XSL-ФАЙЛ · ШАБЛОН" Style="{StaticResource Section}" Margin="0,6,0,0" />
+                        <Label Text="Задає вигляд HTML-сторінки. Потрібен лише для «Трансформувати в HTML»" Style="{StaticResource FieldLabel}" />
                         <Grid ColumnDefinitions="*,*" ColumnSpacing="6">
                             <Button Grid.Column="0" Text="З диска" CommandParameter="Local" Clicked="OnOpenXslClicked" />
                             <Button Grid.Column="1" Text="З Google Drive" CommandParameter="GoogleDrive" Clicked="OnOpenXslClicked" />
                         </Grid>
-                        <Label x:Name="XslFileLabel" Text="не відкрито" Style="{StaticResource FileName}" />
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                            <Label x:Name="XslFileLabel" Grid.Column="0" Text="не відкрито" Style="{StaticResource FileName}" />
+                            <Button x:Name="CloseXslButton" Grid.Column="1" Text="Закрити" Style="{StaticResource SmallButton}"
+                                    IsVisible="False" Clicked="OnCloseXslClicked" />
+                        </Grid>
 
                         <BoxView Style="{StaticResource Rule}" />
 
@@ -148,7 +165,8 @@
                 </ScrollView>
             </Border>
 
-            <!-- Search parameters: lists are filled with the values found in the opened file -->
+            <!-- Search parameters: the lists are filled with the values found in the opened file;
+                 every change refreshes the results at once -->
             <Border Grid.Column="1" Style="{StaticResource Card}">
                 <ScrollView>
                     <VerticalStackLayout Spacing="6">
@@ -156,29 +174,30 @@
                         <Label Text="ПАРАМЕТРИ ПОШУКУ" Style="{StaticResource Section}" />
 
                         <Label Text="Вид" Style="{StaticResource FieldLabel}" />
-                        <Picker x:Name="KindPicker" Title="будь-який" />
+                        <local:ValueSelector x:Name="KindSelector" Placeholder="будь-який" />
 
                         <Label Text="Факультет" Style="{StaticResource FieldLabel}" />
-                        <Picker x:Name="FacultyPicker" Title="будь-який" />
+                        <local:ValueSelector x:Name="FacultySelector" Placeholder="будь-який" />
 
                         <Label Text="Кафедра" Style="{StaticResource FieldLabel}" />
-                        <Picker x:Name="DepartmentPicker" Title="будь-яка" />
+                        <local:ValueSelector x:Name="DepartmentSelector" Placeholder="будь-яка" />
 
                         <Label Text="День засідань" Style="{StaticResource FieldLabel}" />
-                        <Picker x:Name="DayPicker" Title="будь-який" />
+                        <local:ValueSelector x:Name="DaySelector" Placeholder="будь-який" />
 
                         <Label Text="Курс" Style="{StaticResource FieldLabel}" />
-                        <Picker x:Name="CoursePicker" Title="будь-який" />
+                        <local:ValueSelector x:Name="CourseSelector" Placeholder="будь-який" />
 
                         <Label Text="Тематика" Style="{StaticResource FieldLabel}" />
-                        <Picker x:Name="TopicPicker" Title="будь-яка" />
+                        <local:ValueSelector x:Name="TopicSelector" Placeholder="будь-яка" />
 
                         <Label Text="Ключове слово (назва, староста, керівник...)" Style="{StaticResource FieldLabel}" />
-                        <Entry x:Name="KeywordEntry" Placeholder="наприклад, олімп" />
+                        <Entry x:Name="KeywordEntry" Placeholder="наприклад, олімп"
+                               TextChanged="OnKeywordChanged" Completed="OnKeywordCompleted" />
 
                         <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" Margin="0,10,0,0">
                             <Button Grid.Column="0" Text="Пошук" Style="{StaticResource AccentButton}" Clicked="OnSearchClicked" />
-                            <Button Grid.Column="1" Text="Clear" Clicked="OnClearClicked" />
+                            <Button Grid.Column="1" Text="Очистити" Clicked="OnClearClicked" />
                         </Grid>
 
                     </VerticalStackLayout>
@@ -194,8 +213,7 @@
                            LineBreakMode="WordWrap" />
                     <ScrollView Grid.Row="2">
                         <Label x:Name="ResultsLabel" FontSize="13" LineHeight="1.3"
-                               TextColor="{StaticResource Text}"
-                               Text="Відкрийте XML-файл, задайте параметри і натисніть «Пошук»." />
+                               TextColor="{StaticResource Text}" />
                     </ScrollView>
                 </Grid>
             </Border>

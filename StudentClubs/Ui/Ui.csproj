@@ -26,10 +26,10 @@
 		<MauiXamlInflator>SourceGen</MauiXamlInflator>
 
 		<!-- Display name -->
-		<ApplicationTitle>Ui</ApplicationTitle>
+		<ApplicationTitle>StudentClubs</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.ui</ApplicationId>
+		<ApplicationId>com.xxieuss.studentclubs</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>

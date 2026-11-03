@@ -67,6 +67,17 @@ public class ClubController {
         XslName = Path.GetFileName(name);
     }
 
+    public void CloseXml() {
+        _xmlContent = "";
+        XmlName = "";
+        Clear();
+    }
+
+    public void CloseXsl() {
+        _xslContent = "";
+        XslName = "";
+    }
+
     public void SelectMethod(SearchMethod method) {
         Method = method;
         _searcher.SetStrategy(_strategies[method]);
