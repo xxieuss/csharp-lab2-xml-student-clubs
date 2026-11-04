@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:Ui"
              x:Class="Ui.MainPage"
              Title="Студентські гуртки та семінари"
+             Shell.NavBarIsVisible="False"
              BackgroundColor="#120F18">
 
     <ContentPage.Resources>

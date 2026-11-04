@@ -41,9 +41,6 @@ public partial class MainPage : ContentPage {
         ShowStatus("Відкрийте XML-файл з диска або з Google Drive");
     }
 
-    public Task<bool> ConfirmExitAsync() =>
-        DisplayAlertAsync("Завершення роботи", "Чи дійсно ви хочете завершити роботу з програмою?", "Так", "Ні");
-
     private async void OnOpenXmlClicked(object? sender, EventArgs e) {
         FileLocation location = LocationOf(sender);
 
@@ -188,9 +185,7 @@ public partial class MainPage : ContentPage {
         ShowStatus("Результати і параметри пошуку очищено");
     }
 
-    private async void OnExitClicked(object? sender, EventArgs e) {
-        if (await ConfirmExitAsync()) Application.Current?.Quit();
-    }
+    private async void OnExitClicked(object? sender, EventArgs e) => await App.ConfirmQuitAsync();
 
     private async Task RefreshAsync() {
         if (!_controller.HasXml) return;
