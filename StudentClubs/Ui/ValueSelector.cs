@@ -5,6 +5,12 @@ namespace Ui;
 
 public class ValueSelector : ContentView {
     private const string NoFileText = "Спочатку відкрийте XML-файл";
+    private const double FieldHeight = 54;
+
+    private readonly Label _caption = new Label {
+        FontSize = 11,
+        LineBreakMode = LineBreakMode.TailTruncation
+    };
 
     private readonly Label _text = new Label {
         FontSize = 13,
@@ -12,18 +18,30 @@ public class ValueSelector : ContentView {
         LineBreakMode = LineBreakMode.TailTruncation
     };
 
+    private readonly Border _frame = new Border {
+        HeightRequest = FieldHeight,
+        Padding = new Thickness(12, 7),
+        StrokeThickness = 1,
+        StrokeShape = new RoundRectangle { CornerRadius = 10 }
+    };
+
     private readonly Button _opener = new Button {
         Text = "",
         BackgroundColor = Colors.Transparent,
         BorderWidth = 0,
         Padding = new Thickness(0),
-        HeightRequest = 36,
+        HeightRequest = FieldHeight,
         MinimumHeightRequest = 0
     };
 
     private List<string> _items = new List<string>();
     private int _selectedIndex = -1;
     private string _placeholder = "";
+
+    public string Caption {
+        get => _caption.Text;
+        set => _caption.Text = value;
+    }
 
     public string Placeholder {
         get => _placeholder;
@@ -57,27 +75,24 @@ public class ValueSelector : ContentView {
         Label arrow = new Label { Text = "▾", FontSize = 13, VerticalTextAlignment = TextAlignment.Center };
         arrow.SetDynamicResource(Label.TextColorProperty, "TextDim");
 
-        Grid row = new Grid {
+        Grid layout = new Grid {
+            RowDefinitions = { new RowDefinition(GridLength.Auto), new RowDefinition(GridLength.Star) },
             ColumnDefinitions = { new ColumnDefinition(GridLength.Star), new ColumnDefinition(GridLength.Auto) },
-            ColumnSpacing = 8
+            ColumnSpacing = 8,
+            RowSpacing = 1
         };
-        row.Add(_text, 0, 0);
-        row.Add(arrow, 1, 0);
+        layout.Add(_caption, 0, 0);
+        layout.Add(_text, 0, 1);
+        layout.Add(arrow, 1, 0);
+        Grid.SetRowSpan(arrow, 2);
 
-        Border frame = new Border {
-            Content = row,
-            HeightRequest = 36,
-            Padding = new Thickness(10, 0),
-            StrokeThickness = 1,
-            StrokeShape = new RoundRectangle { CornerRadius = 6 }
-        };
-        frame.SetDynamicResource(BackgroundColorProperty, "Field");
-        frame.SetDynamicResource(Border.StrokeProperty, "CardBorder");
+        _frame.Content = layout;
+        _frame.SetDynamicResource(BackgroundColorProperty, "Field");
 
         _opener.HandlerChanged += (sender, e) => UpdateMenu();
 
         Grid root = new Grid();
-        root.Add(frame);
+        root.Add(_frame);
         root.Add(_opener);
 
         Content = root;
@@ -95,6 +110,10 @@ public class ValueSelector : ContentView {
         bool empty = _selectedIndex < 0;
         _text.Text = empty ? _placeholder : _items[_selectedIndex];
         _text.SetDynamicResource(Label.TextColorProperty, empty ? "TextDim" : "Text");
+
+        bool filters = _selectedIndex > 0;
+        _frame.SetDynamicResource(Border.StrokeProperty, filters ? "Accent" : "CardBorder");
+        _caption.SetDynamicResource(Label.TextColorProperty, filters ? "Accent" : "TextDim");
 
         UpdateMenu();
     }

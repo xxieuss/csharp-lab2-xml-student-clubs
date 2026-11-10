@@ -5,16 +5,24 @@ using UIKit;
 namespace Ui;
 
 public partial class MainPage : ContentPage {
-    private const string AnyValue = "— усі —";
-    private const string NotOpened = "не відкрито";
-    private const string OpenHint = "Відкрийте XML-файл, і тут з'являться гуртки. Кожна зміна параметрів одразу оновлює результат.";
-    private const string ClearedHint = "Результати очищено. Оберіть параметри або натисніть «Пошук», щоб знову побачити гуртки.";
+    private const string AnyValue = "Усі";
+    private const string NotOpened = "Файл не відкрито";
+    private const string XmlHint = "Гуртки, серед яких іде пошук";
+    private const string XslHint = "Шаблон для HTML-сторінки";
+
+    private const string OpenTitle = "Файл ще не відкрито";
+    private const string OpenHint = "Відкрийте XML-файл з диска або з Google Drive у панелі ліворуч, і тут з'являться всі гуртки та семінари.";
+    private const string ClearedTitle = "Результати очищено";
+    private const string ClearedHint = "Оберіть параметри або натисніть «Пошук», щоб знову побачити гуртки.";
+    private const string NothingTitle = "Нічого не знайдено";
+    private const string NothingHint = "Спробуйте прибрати частину параметрів або змінити ключове слово.";
 
     private const int KeywordDelayMs = 400;
 
     private readonly ClubController _controller;
     private readonly Dictionary<string, ValueSelector> _selectors;
     private CancellationTokenSource? _keywordDelay;
+    private FileLocation _target = FileLocation.Local;
     private bool _hasResults;
     private bool _resetting;
 
@@ -36,8 +44,10 @@ public partial class MainPage : ContentPage {
         };
         foreach (ValueSelector selector in _selectors.Values) selector.SelectionChanged += OnFilterChanged;
 
-        ResultsLabel.Text = OpenHint;
-        LogPathLabel.Text = $"Протокол: {_controller.LogPath}";
+        ShowMethod();
+        ShowTarget();
+        ResetResults();
+        LogPathLabel.Text = _controller.LogPath;
         ShowStatus("Відкрийте XML-файл з диска або з Google Drive");
     }
 
@@ -52,11 +62,13 @@ public partial class MainPage : ContentPage {
 
             FillSelectors(values);
             ResetKeyword();
-            XmlFileLabel.Text = Describe(_controller.XmlName, location);
+            XmlFileLabel.Text = _controller.XmlName;
+            XmlInfoLabel.Text = SourceOf(location);
             CloseXmlButton.IsVisible = true;
 
-            int found = Search();
-            ShowStatus($"Відкрито {_controller.XmlName}, гуртків у файлі: {found}");
+            string records = CountOf(Search(), "запис", "записи", "записів");
+            XmlInfoLabel.Text = $"{records} · {SourceOf(location)}";
+            ShowStatus($"Відкрито {_controller.XmlName}, у файлі {records}");
         });
     }
 
@@ -69,7 +81,8 @@ public partial class MainPage : ContentPage {
 
             await _controller.OpenXslAsync(location, name);
 
-            XslFileLabel.Text = Describe(_controller.XslName, location);
+            XslFileLabel.Text = _controller.XslName;
+            XslInfoLabel.Text = $"Шаблон перевірено · {SourceOf(location)}";
             CloseXslButton.IsVisible = true;
             ShowStatus($"Відкрито {_controller.XslName}");
         });
@@ -87,26 +100,43 @@ public partial class MainPage : ContentPage {
         ResetKeyword();
         ResetResults();
         XmlFileLabel.Text = NotOpened;
+        XmlInfoLabel.Text = XmlHint;
         CloseXmlButton.IsVisible = false;
         ShowStatus($"Файл {name} закрито");
     }
 
-    private void OnCloseXslClicked(object? sender, EventArgs e) {
+    private async void OnCloseXslClicked(object? sender, EventArgs e) {
         string name = _controller.XslName;
+        bool confirmed = await DisplayAlertAsync("Закриття файлу",
+            $"Закрити {name}? Без XSL-файлу не можна буде трансформувати результати в HTML.", "Так", "Ні");
+        if (!confirmed) return;
+
         _controller.CloseXsl();
 
         XslFileLabel.Text = NotOpened;
+        XslInfoLabel.Text = XslHint;
         CloseXslButton.IsVisible = false;
         ShowStatus($"Файл {name} закрито");
     }
 
     private async void OnFilterChanged(object? sender, EventArgs e) => await RefreshAsync();
 
-    private async void OnMethodChanged(object? sender, CheckedChangedEventArgs e) {
-        if (!e.Value || sender is not RadioButton { Value: string value }) return;
+    private async void OnMethodChanged(object? sender, TappedEventArgs e) {
+        if (e.Parameter is not string value) return;
 
-        _controller.SelectMethod(Enum.Parse<SearchMethod>(value));
+        SearchMethod method = Enum.Parse<SearchMethod>(value);
+        if (method == _controller.Method) return;
+
+        _controller.SelectMethod(method);
+        ShowMethod();
         if (_hasResults) await RefreshAsync();
+    }
+
+    private void OnTargetChanged(object? sender, TappedEventArgs e) {
+        if (e.Parameter is not string value) return;
+
+        _target = Enum.Parse<FileLocation>(value);
+        ShowTarget();
     }
 
     private async void OnKeywordChanged(object? sender, TextChangedEventArgs e) {
@@ -137,7 +167,7 @@ public partial class MainPage : ContentPage {
     }
 
     private async void OnSaveXmlClicked(object? sender, EventArgs e) {
-        FileLocation target = SelectedTarget();
+        FileLocation target = _target;
 
         await RunAsync(sender, "Збереження XML", async () => {
             ShowWaiting(target);
@@ -149,7 +179,7 @@ public partial class MainPage : ContentPage {
     }
 
     private async void OnTransformClicked(object? sender, EventArgs e) {
-        FileLocation target = SelectedTarget();
+        FileLocation target = _target;
 
         await RunAsync(sender, "Трансформація", async () => {
             ShowWaiting(target);
@@ -183,6 +213,20 @@ public partial class MainPage : ContentPage {
         ResetKeyword();
         ResetResults();
         ShowStatus("Результати і параметри пошуку очищено");
+    }
+
+    private async void OnOpenLogClicked(object? sender, EventArgs e) {
+        await RunAsync(sender, "Протокол подій", async () => {
+            if (!File.Exists(_controller.LogPath)) {
+                ShowStatus("Протокол ще порожній");
+                await DisplayAlertAsync("Протокол подій",
+                    "Протокол ще порожній. Перший запис з'явиться після пошуку, трансформації або збереження.", "Гаразд");
+                return;
+            }
+
+            await OpenInDefaultAppAsync(_controller.LogPath);
+            ShowStatus("Протокол подій відкрито");
+        });
     }
 
     private async void OnExitClicked(object? sender, EventArgs e) => await App.ConfirmQuitAsync();
@@ -260,24 +304,38 @@ public partial class MainPage : ContentPage {
     }
 
     private void ShowResults(List<Club> clubs) {
-        ResultsTitleLabel.Text = $"РЕЗУЛЬТАТИ · {MethodTitle()} · ЗНАЙДЕНО {clubs.Count}";
+        _hasResults = true;
+        BindableLayout.SetItemsSource(ResultsList, clubs.Select(club => new ClubCard(club)).ToList());
+
+        CountLabel.Text = CountOf(clubs.Count, "результат", "результати", "результатів");
+        CountBorder.IsVisible = true;
+        MethodLabel.Text = $"через {MethodTitle()}";
 
         string query = _controller.LastQuery;
-        QueryLabel.Text = $"XPath: {query}";
-        QueryLabel.IsVisible = query.Length > 0;
+        QueryLabel.Text = query;
+        QueryBorder.IsVisible = query.Length > 0;
 
-        _hasResults = true;
-        ResultsLabel.Text = clubs.Count == 0
-            ? "За заданими параметрами нічого не знайдено."
-            : string.Join("\n\n", clubs.Select((club, i) => $"{i + 1}. {club}"));
+        if (clubs.Count == 0) ShowEmpty(NothingTitle, NothingHint);
+        else EmptyBorder.IsVisible = false;
     }
 
     private void ResetResults() {
         _hasResults = false;
-        ResultsTitleLabel.Text = "РЕЗУЛЬТАТИ";
+        BindableLayout.SetItemsSource(ResultsList, Array.Empty<ClubCard>());
+
+        CountBorder.IsVisible = false;
+        MethodLabel.Text = "";
         QueryLabel.Text = "";
-        QueryLabel.IsVisible = false;
-        ResultsLabel.Text = _controller.HasXml ? ClearedHint : OpenHint;
+        QueryBorder.IsVisible = false;
+
+        if (_controller.HasXml) ShowEmpty(ClearedTitle, ClearedHint);
+        else ShowEmpty(OpenTitle, OpenHint);
+    }
+
+    private void ShowEmpty(string title, string hint) {
+        EmptyTitleLabel.Text = title;
+        EmptyHintLabel.Text = hint;
+        EmptyBorder.IsVisible = true;
     }
 
     private void ResetKeyword() {
@@ -292,15 +350,33 @@ public partial class MainPage : ContentPage {
         || _selectors.Values.Any(selector => selector.SelectedIndex > 0)
         || !string.IsNullOrWhiteSpace(KeywordEntry.Text);
 
+    private void ShowMethod() {
+        Highlight(SaxTile, _controller.Method == SearchMethod.Sax);
+        Highlight(DomTile, _controller.Method == SearchMethod.Dom);
+        Highlight(LinqTile, _controller.Method == SearchMethod.Linq);
+    }
+
+    private void ShowTarget() {
+        Highlight(LocalTile, _target == FileLocation.Local);
+        Highlight(DriveTile, _target == FileLocation.GoogleDrive);
+    }
+
+    private void Highlight(Border tile, bool chosen) {
+        tile.BackgroundColor = chosen ? Palette("Accent2") : Colors.Transparent;
+        if (tile.Content is not Layout layout) return;
+
+        foreach (Label label in layout.OfType<Label>())
+            label.TextColor = Palette(chosen ? "Window" : "Text");
+    }
+
+    private Color Palette(string key) => (Color)Resources[key];
+
     private void ShowWaiting(FileLocation target) =>
         ShowStatus(target == FileLocation.GoogleDrive
             ? "Передаю файл на Google Drive... Якщо відкрився браузер, дозвольте доступ"
             : "Зберігаю файл...");
 
     private void ShowStatus(string text) => StatusLabel.Text = text;
-
-    private FileLocation SelectedTarget() =>
-        DriveTargetRadio.IsChecked ? FileLocation.GoogleDrive : FileLocation.Local;
 
     private static FileLocation LocationOf(object? sender) =>
         sender is Button { CommandParameter: string value } && Enum.TryParse(value, out FileLocation location)
@@ -314,6 +390,22 @@ public partial class MainPage : ContentPage {
 
     private static string Describe(string name, FileLocation location) =>
         location == FileLocation.GoogleDrive ? $"{name} (Google Drive)" : name;
+
+    private static string SourceOf(FileLocation location) =>
+        location == FileLocation.GoogleDrive ? "Google Drive" : "локальний диск";
+
+    private static string CountOf(int count, string one, string few, string many) {
+        int lastTwo = count % 100;
+        int last = count % 10;
+
+        string word;
+        if (lastTwo >= 11 && lastTwo <= 14) word = many;
+        else if (last == 1) word = one;
+        else if (last >= 2 && last <= 4) word = few;
+        else word = many;
+
+        return $"{count} {word}";
+    }
 
     private string MethodTitle() => _controller.Method switch {
         SearchMethod.Dom => "DOM API",

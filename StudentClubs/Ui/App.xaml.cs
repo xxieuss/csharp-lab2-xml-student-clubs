@@ -1,4 +1,5 @@
-﻿using UIKit;
+﻿using Microsoft.Maui.Handlers;
+using UIKit;
 
 namespace Ui;
 
@@ -10,6 +11,9 @@ public partial class App : Application {
     public App() {
         InitializeComponent();
         UserAppTheme = AppTheme.Dark;
+
+        EntryHandler.Mapper.AppendToMapping("NoNativeFrame", (handler, view) =>
+            handler.PlatformView.BorderStyle = UITextBorderStyle.None);
     }
 
     protected override Window CreateWindow(IActivationState? activationState) {

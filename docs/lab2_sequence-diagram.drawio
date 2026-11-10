@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Use-case diagram" id="env0d8QjtYhLLcc_O6v5">
-    <mxGraphModel dx="352" dy="203" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1139" dy="589" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -73,20 +73,11 @@
         <mxCell id="9Icu6odS899Rx3wCKPT2-623" parent="9Icu6odS899Rx3wCKPT2-622" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
           <mxGeometry height="327" width="10" x="25" y="359" as="geometry" />
         </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-624" parent="9Icu6odS899Rx3wCKPT2-622" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="78" width="10" x="35" y="402" as="geometry" />
-        </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-625" parent="9Icu6odS899Rx3wCKPT2-622" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
           <mxGeometry height="157" width="10" x="25" y="879" as="geometry" />
         </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-626" parent="9Icu6odS899Rx3wCKPT2-622" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="24" width="10" x="35" y="922" as="geometry" />
-        </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-627" parent="9Icu6odS899Rx3wCKPT2-622" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
           <mxGeometry height="157" width="10" x="25" y="2451" as="geometry" />
-        </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-628" parent="9Icu6odS899Rx3wCKPT2-622" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="24" width="10" x="35" y="2494" as="geometry" />
         </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-629" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;" value="lazyDrive: LazyDriveStorage" vertex="1">
           <mxGeometry height="26" width="200" x="880" y="104" as="geometry" />
@@ -96,9 +87,6 @@
         </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-631" parent="9Icu6odS899Rx3wCKPT2-630" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
           <mxGeometry height="109" width="10" x="25" y="123" as="geometry" />
-        </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-632" parent="9Icu6odS899Rx3wCKPT2-630" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="22" width="10" x="35" y="176" as="geometry" />
         </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-633" parent="9Icu6odS899Rx3wCKPT2-630" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
           <mxGeometry height="37" width="10" x="25" y="545" as="geometry" />
@@ -136,9 +124,6 @@
         <mxCell id="9Icu6odS899Rx3wCKPT2-644" parent="9Icu6odS899Rx3wCKPT2-643" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
           <mxGeometry height="89" width="10" x="25" y="1351" as="geometry" />
         </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-645" parent="9Icu6odS899Rx3wCKPT2-643" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="24" width="10" x="35" y="1394" as="geometry" />
-        </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-646" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;" value="strategy: LinqSearchStrategy" vertex="1">
           <mxGeometry height="26" width="200" x="1820" y="104" as="geometry" />
         </mxCell>
@@ -151,14 +136,8 @@
         <mxCell id="9Icu6odS899Rx3wCKPT2-649" parent="9Icu6odS899Rx3wCKPT2-647" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
           <mxGeometry height="69" width="10" x="25" y="1555" as="geometry" />
         </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-650" parent="9Icu6odS899Rx3wCKPT2-647" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="24" width="10" x="35" y="1594" as="geometry" />
-        </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-651" parent="9Icu6odS899Rx3wCKPT2-647" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
           <mxGeometry height="67" width="10" x="25" y="2663" as="geometry" />
-        </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-652" parent="9Icu6odS899Rx3wCKPT2-647" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="24" width="10" x="35" y="2702" as="geometry" />
         </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-653" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;" value="logger: EventLogger" vertex="1">
           <mxGeometry height="26" width="200" x="2030" y="104" as="geometry" />
@@ -169,12 +148,6 @@
         <mxCell id="9Icu6odS899Rx3wCKPT2-655" parent="9Icu6odS899Rx3wCKPT2-654" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
           <mxGeometry height="545" width="10" x="25" y="113" as="geometry" />
         </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-656" parent="9Icu6odS899Rx3wCKPT2-654" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="24" width="10" x="35" y="156" as="geometry" />
-        </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-657" parent="9Icu6odS899Rx3wCKPT2-654" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="72" width="10" x="35" y="206" as="geometry" />
-        </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-658" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;" value="saver: HtmlFragmentSaver" vertex="1">
           <mxGeometry height="26" width="200" x="2240" y="2086" as="geometry" />
         </mxCell>
@@ -183,12 +156,6 @@
         </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-660" parent="9Icu6odS899Rx3wCKPT2-659" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
           <mxGeometry height="121" width="10" x="25" y="113" as="geometry" />
-        </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-661" parent="9Icu6odS899Rx3wCKPT2-659" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="24" width="10" x="35" y="154" as="geometry" />
-        </mxCell>
-        <mxCell id="9Icu6odS899Rx3wCKPT2-662" parent="9Icu6odS899Rx3wCKPT2-659" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
-          <mxGeometry height="24" width="10" x="35" y="200" as="geometry" />
         </mxCell>
         <mxCell id="9Icu6odS899Rx3wCKPT2-663" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=12;" value="writer: HtmlFragmentWriter" vertex="1">
           <mxGeometry height="26" width="200" x="2490" y="2296" as="geometry" />
